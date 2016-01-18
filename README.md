@@ -8,3 +8,30 @@ For instance the `map` method is a high-order function, because `map` takes a li
 **First-order** functions is a language feature allowing functions to be treated as objects.
 
 First-order functions is specific to programming language compared to the high-order function notion that can be also applied to math. But even if those notions are completely different, it's hard to imagine a language that provides first-order functions support without any high-order functions.
+
+
+## Functions (01-18-09)
+
+ES 2015 came up with a new syntax for function declaration: fat arrow function. It now time to review how to declare function in javascript
+
+**Function declaration**
+```javascript
+function square(a) {
+  return a * a;
+}
+```
+Functions declaration are always prefixed with the keyword function. They are named, because they are declarations they are hoisted as any variable declarations.
+
+**Function expression**
+```javascript
+const square = function() {
+  return a * a;
+};
+```
+Functions expression is assigning a function to a variable. Because only declarations are hoisted, the `square` variable can be accessible about it declaration, however it value is set to `undefined` until the declaration is reached. Those functions can also be named but it's not mandatory. However providing a name to function expression is a good practice in the case of closure in order to avoid the `Anonymous function` label in the debugger;
+
+**Fat Arrow function**
+```javascript
+const square = a => a * a;
+```
+Fat arrow function a new syntax sugar introduced with ES 2015. Those functions are necessarily anonymous. This syntax is mainly used for one-liner / short functions: because they offer for free the lexical binding of `this` and don't need curly braces and return statements.
