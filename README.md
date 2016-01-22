@@ -10,7 +10,7 @@ For instance the `map` method is a high-order function, because `map` takes a li
 First-order functions is specific to programming language compared to the high-order function notion that can be also applied to math. But even if those notions are completely different, it's hard to imagine a language that provides first-order functions support without any high-order functions.
 
 
-## Functions (01-18-09)
+## Functions (01-18-16)
 
 ES 2015 came up with a new syntax for function declaration: fat arrow function. It now time to review how to declare function in javascript
 
@@ -35,3 +35,6 @@ Functions expression is assigning a function to a variable. Because only declara
 const square = a => a * a;
 ```
 Fat arrow function a new syntax sugar introduced with ES 2015. Those functions are necessarily anonymous. This syntax is mainly used for one-liner / short functions: because they offer for free the lexical binding of `this` and don't need curly braces and return statements.
+
+
+## Private members and ES6 classes (01-22-16)
