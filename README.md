@@ -41,9 +41,9 @@ Fat arrow function a new syntax sugar introduced with ES 2015. Those functions a
 
 * **[Prefix with _](private-members-es6/underscore.js)** More than a techniques, it's a javascript coding convention to declare private variables prefixed with `_`. For developers new to javascript, the underscore in front of the variable name will discourage most of them in manipulating it. For more experimented developers this way of declaring private members offer the advantage to be really light-weight, easy to inspect object state. But it doesn't provide any real privacy.
 
-* **[Constructor closure](private-members-es6/constructor.js)**
+* **[Constructor closure](private-members-es6/constructor.js)** This method ensure a real privacy because of the closure created in the constructor. However, every methods accessing to the private member should be defined in the constructor it self (which is not the purpose of the new ES6 syntax). We can also notice that this method don't benefit from the prototypal inheritance because those functions are attached to the `this` object itself.
 
-* **[Symbol](private-members-es6/symbol.js)**
+* **[Symbol](private-members-es6/symbol.js)** Each `Symbol` object are unique, which means that we can't access an property of an object defined by a `Symbol` if we don't have a reference to the `Symbol` it self. Applying that to class we can theoricaly ensure private members by referencing them via `Symbol`.  
 
 * **[Weak Map](private-members-es6/weak-map.js)**
 
