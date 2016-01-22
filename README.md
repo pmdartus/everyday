@@ -38,3 +38,13 @@ Fat arrow function a new syntax sugar introduced with ES 2015. Those functions a
 
 
 ## Private members and ES6 classes (01-22-16)
+
+* **[Prefix with _](private-members-es6/underscore.js)** More than a techniques, it's a javascript coding convention to declare private variables prefixed with `_`. For developers new to javascript, the underscore in front of the variable name will discourage most of them in manipulating it. For more experimented developers this way of declaring private members offer the advantage to be really light-weight, easy to inspect object state. But it doesn't provide any real privacy.
+
+* **[Constructor closure](private-members-es6/constructor.js)**
+
+* **[Symbol](private-members-es6/symbol.js)**
+
+* **[Weak Map](private-members-es6/weak-map.js)**
+
+TODO: http://sravi-kiran.blogspot.fr/2015/01/PrivateMembersInES6Classes.html
