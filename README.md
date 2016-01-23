@@ -43,8 +43,6 @@ Fat arrow function a new syntax sugar introduced with ES 2015. Those functions a
 
 * **[Constructor closure](private-members-es6/constructor.js)** This method ensure a real privacy because of the closure created in the constructor. However, every methods accessing to the private member should be defined in the constructor it self (which is not the purpose of the new ES6 syntax). We can also notice that this method don't benefit from the prototypal inheritance because those functions are attached to the `this` object itself.
 
-* **[Symbol](private-members-es6/symbol.js)** Each `Symbol` object are unique, which means that we can't access an property of an object defined by a `Symbol` if we don't have a reference to the `Symbol` it self. Applying that to class we can theoricaly ensure private members by referencing them via `Symbol`.  
+* **[Symbol](private-members-es6/symbol.js)** Each `Symbol` object are unique, which means that we can't access an property of an object defined by a `Symbol` if we don't have a reference to the `Symbol` it self. Applying that to class we can in theory ensure private members by referencing them via `Symbol`, but you can list all properties referenced by `Symbols` using `Object.getOwnPropertySymbols`.
 
-* **[Weak Map](private-members-es6/weak-map.js)**
-
-TODO: http://sravi-kiran.blogspot.fr/2015/01/PrivateMembersInES6Classes.html
+* **[Weak Map](private-members-es6/weak-map.js)** Weak-map is also a good option for data privacy, because as all `Map` it offer to use any object as key but allow those keys to be garbage collected. A `Weak-Map` should be created be private members, each instance of the class set itself as a key in order to access the value. In order to ensure the privacy, those `Weak-Maps` should not be exported out of the module. 
