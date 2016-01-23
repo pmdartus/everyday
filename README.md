@@ -63,7 +63,8 @@ nodes.forEach(domNode => {
 
 This approach can lead to weird behaviors for function looping on properties using `Object.keys(node)` or `for-in` but worse it can also lead to property key name clash. In order to step over each others, you will have to change the key name to `domNode.__MyIsMovingProp`. Or you can use a randomly generated string has property key. `Symbols` has been introduced in order to solve those issues.
 
-**Symbol on the thumb**
+**Symbol on the thumb** Because standards keys and `Symbols` can clash, it can be used to attach meta-data to standards objects.
+
 ```javascript
 // Create a new symbol
 let s1 = Symbol();
@@ -86,5 +87,6 @@ const obj = {
 };
 
 // List all Symbols attached to an object
-Object.getOwnPropertySymbols(obj); // [Symbol(foo)]
+Object.getOwnPropertySymbols(obj);  // [Symbol(foo)]
+Object.keys(obj);                   // ['bar']
 ```
