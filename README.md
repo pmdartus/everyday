@@ -45,4 +45,46 @@ Fat arrow function a new syntax sugar introduced with ES 2015. Those functions a
 
 * **[Symbol](private-members-es6/symbol.js)** Each `Symbol` object are unique, which means that we can't access an property of an object defined by a `Symbol` if we don't have a reference to the `Symbol` it self. Applying that to class we can in theory ensure private members by referencing them via `Symbol`, but you can list all properties referenced by `Symbols` using `Object.getOwnPropertySymbols`.
 
-* **[Weak Map](private-members-es6/weak-map.js)** Weak-map is also a good option for data privacy, because as all `Map` it offer to use any object as key but allow those keys to be garbage collected. A `Weak-Map` should be created be private members, each instance of the class set itself as a key in order to access the value. In order to ensure the privacy, those `Weak-Maps` should not be exported out of the module. 
+* **[Weak Map](private-members-es6/weak-map.js)** Weak-map is also a good option for data privacy, because as all `Map` it offer to use any object as key but allow those keys to be garbage collected. A `Weak-Map` should be created be private members, each instance of the class set itself as a key in order to access the value. In order to ensure the privacy, those `Weak-Maps` should not be exported out of the module.
+
+## Couple of words about Symbols (01-23-16)
+
+**Why symbols?** For instance while designing an animation lib, it's really tempting to store informations on the `DOMElements` and avoid to recompute most of the informations every rendering loop. It's really appealing to store for instance to do something like that:
+
+```javascript
+nodes.forEach(domNode => {
+  if (domNode.isMoving) {
+    ...
+  } else {
+    ...
+  }
+})
+```
+
+This approach can lead to weird behaviors for function looping on properties using `Object.keys(node)` or `for-in` but worse it can also lead to property key name clash. In order to step over each others, you will have to change the key name to `domNode.__MyIsMovingProp`. Or you can use a randomly generated string has property key. `Symbols` has been introduced in order to solve those issues.
+
+**Symbol on the thumb**
+```javascript
+// Create a new symbol
+let s1 = Symbol();
+
+// Create a new symbol with a description and NOT a name
+let s2 = Symbol('everyday');
+
+// Each symbol is different from another
+Symbol() === Symbol() // false
+Symbol('everyday') === Symbol('everyday') // false
+
+// But because symbols are registered globally you can ask to create multiple time the same symbol.
+// De facto symbol don't need to be exported out of the modules
+Symbol.for('everyday') === Symbol.for('everyday') // true
+
+// Object literal usage
+const obj = {
+  [Symbol('foo')]: 'bar',
+  'bar': 'foo'
+};
+
+// List all Symbols attached to an object
+Object.getOwnPropertySymbols(obj); // [Symbol(foo)]
+```
