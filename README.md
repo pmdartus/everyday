@@ -90,3 +90,73 @@ const obj = {
 Object.getOwnPropertySymbols(obj);  // [Symbol(foo)]
 Object.keys(obj);                   // ['bar']
 ```
+
+
+## Hidden features of chromedriver (02-09-2016)
+
+It's currently impossible to use chromedriver and chrome remote debugging API at the same time. It's mainly due to the fact that chrome allows only a single debugger to be attached to the browser. That been said, there are couple of ways to retrieve informations from chromedriver. The following example use the [webdriver.io](webdriver.io) (webdriver lib for nodejs), but it can be apply to all lib and languages.
+
+You can find all those commands hard-coded in chromedriver [code](https://github.com/scheib/chromium/blob/e17f64a0e2379368cf9fd54109bbee246ca73b4f/chrome/test/chromedriver/window_commands.cc#L292).
+
+### Take an heap snapshot
+
+```javascript
+client.execute(':takeHeapSnapshot')
+  .then(res => {
+    fs.writeFileSync('example.heapsnapshot', res.value);
+  });
+```
+
+### Retrieve CPU profile
+
+```javascript
+client.execute(':startProfile')
+  .then(() => {
+    /* HAVE FUN */
+  })
+  .execute(':endProfile')
+  .then(res => fs.writeFileSync('example.cpuprofile', res.value));
+```
+
+This is what we should expect to happen unfortunately, most of the time webdriver server crash, but you can parse the error message to get the profile informations.
+
+
+### Retrieve timeline informations
+
+You can retrieve the timeline using chromedriver logs. First you will have to make chromedriver a little more chatty by selecting `tracingCategories`.
+
+```javascript
+desiredCapabilities: {
+  browserName: 'chrome',
+
+  chromeOptions: {
+    perfLoggingPrefs: {
+      traceCategories: [
+        '-*',
+        'v8',
+        'blink.console',
+        'devtools.timeline',
+        'disabled-by-default-devtools.timeline',
+        'disabled-by-default-devtools.timeline.frame',
+        'toplevel',
+      ],
+    },
+  },
+
+  loggingPrefs: {
+    performance: 'ALL',
+    browser: 'ALL',
+  },
+},
+```
+
+And then:
+
+```javascript
+client.log('performance')
+  .then(() => {
+    /* HAVE FUN */
+  })
+  .log('performance')
+  .then(res => fs.writeFileSync('example.json', res.value));
+```
