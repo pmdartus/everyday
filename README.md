@@ -160,3 +160,16 @@ client.log('performance')
   .log('performance')
   .then(res => fs.writeFileSync('example.json', res.value));
 ```
+
+## Type coercion (03-13-2016)
+
+The operation of converting a value from a type to another is called `type casting` when done explicitly, and `type coercion` when done implicitly by the engine. This leads to different behaviors of `==` and `===`, where the first operator executes a the comparaison after the type conversion. If both operands are the same type, performance of the operators are the same.
+
+```js
+var answer = 42;
+
+answer.toString() // Type casting
+answer + '' // Type coercion
+```
+
+[source](https://github.com/vasanthk/js-bits/blob/master/js/coercion.js)
