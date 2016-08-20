@@ -173,3 +173,22 @@ answer + '' // Type coercion
 ```
 
 [source](https://github.com/vasanthk/js-bits/blob/master/js/coercion.js)
+
+## NaN
+
+`NaN` value in javascript is an interesting value. For instance, `NaN` occurs when:
+
+* dividing zero by zero
+* dividing `Infinity` by `Infinity`
+* ...
+
+It represent a results of a number operation which has no representation in the real number. Another property of NaN is that it is not equal to it self.
+
+```js
+NaN !== NaN
+// ==> true
+```
+
+The javascript standard offers the `isNaN(<value>)` to check if the passed parameter is `NaN` or not.   
+
+[source](https://medium.com/javascript-refined/nan-and-typeof-36cd6e2a4e43#.puj3taefa)
